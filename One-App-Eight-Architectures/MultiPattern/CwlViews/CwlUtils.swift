@@ -1956,7 +1956,7 @@ struct ScalarScanner<C: Collection> where C.Iterator.Element == UnicodeScalar {
 	}
 	
 	/// Throw if the next scalar at the current `index` fails to match the next scalar in `scalars`. Advance the `index` to the end of the match.
-	mutating func match(where test: (UnicodeScalar) -> Bool) throws {
+	mutating func match(where test: @escaping (UnicodeScalar) -> Bool) throws {
 		if index == scalars.endIndex || !test(scalars[index]) {
 			throw ScalarScannerError.matchFailed(wanted: String(describing: test), at: consumed)
 		}
@@ -1965,7 +1965,7 @@ struct ScalarScanner<C: Collection> where C.Iterator.Element == UnicodeScalar {
 	}
 	
 	/// Throw if the scalars at the current `index` don't match the scalars in `value`. Advance the `index` to the end of the match.
-	mutating func read(where test: (UnicodeScalar) -> Bool) throws -> UnicodeScalar {
+	mutating func read(where test: @escaping (UnicodeScalar) -> Bool) throws -> UnicodeScalar {
 		if index == scalars.endIndex || !test(scalars[index]) {
 			throw ScalarScannerError.matchFailed(wanted: String(describing: test), at: consumed)
 		}

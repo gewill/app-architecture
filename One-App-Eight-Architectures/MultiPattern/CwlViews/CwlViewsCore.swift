@@ -461,6 +461,10 @@ extension Array: StateContainer where Element: StateContainer {
 	}
 }
 
+extension Optional: Cancellable where Wrapped: StateContainer {
+    
+}
+
 extension Optional: StateContainer where Wrapped: StateContainer {
 	var childValues: [StateContainer] {
 		guard let s = self else { return [] }
